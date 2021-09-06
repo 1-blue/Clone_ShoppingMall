@@ -129,7 +129,7 @@ const Carousel = () => {
   }, [imageNames, isShowArrow]);
 
   // 좌우 화살표버튼
-  const arrowBtnNode = () => {
+  const arrowBtnNode = useCallback(() => {
     return (
       <>
         <ArrowBtn position={10} onClick={onClickArrowLeft}>
@@ -140,7 +140,7 @@ const Carousel = () => {
         </ArrowBtn>
       </>
     );
-  };
+  }, []);
 
   return (
     <SlideBox>
