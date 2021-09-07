@@ -5,8 +5,12 @@ import styled from "styled-components";
 import { purple } from "../../css/styleConstants";
 
 const NavStyle = styled.nav`
+  position: sticky;
+  top: 0;
+  z-index: 9999;
   width: 1050px;
   margin: auto;
+  background: white;
 `;
 const NavUlStyle = styled.ul`
   display: flex;
@@ -43,13 +47,13 @@ const NavigationBar = () => {
           </NavLinkStyle>
         </NavLiStyle>
         <NavLiStyle>
-          <NavLinkStyle to="/#">신상품</NavLinkStyle>
+          <NavLinkStyle to="/product?category=new">신상품</NavLinkStyle>
         </NavLiStyle>
         <NavLiStyle>
-          <NavLinkStyle to="/#">베스트</NavLinkStyle>
+          <NavLinkStyle to="/product?category=best">베스트</NavLinkStyle>
         </NavLiStyle>
         <NavLiStyle>
-          <NavLinkStyle to="/#">알뜰쇼핑</NavLinkStyle>
+          <NavLinkStyle to="/product?category=sale">알뜰쇼핑</NavLinkStyle>
         </NavLiStyle>
         <NavLiStyle>
           <NavLinkStyle to="/#">특가/혜택</NavLinkStyle>
