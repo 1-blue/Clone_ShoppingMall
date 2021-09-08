@@ -23,14 +23,14 @@ const ProductNameStyle = styled.h3`
   font-size: 20px;
   color: #333;
 `;
-const ProductPriceStyle = styled.span`
+const PriceStyle = styled.span`
   display: block;
   padding-top: 11px;
   font-weight: 800;
   font-size: 1.2rem;
   color: #333;
 `;
-const ProductDescriptionStyle = styled.span`
+const DescriptionStyle = styled.h3`
   display: block;
   padding-top: 11px;
   font-size: 13px;
@@ -53,8 +53,8 @@ const ProductCard = ({ product }) => {
         />
       </ProductImageContainerStyle>
       <ProductNameStyle>{product.name}</ProductNameStyle>
-      <ProductPriceStyle>{priceSplit(product.price, ",")}원</ProductPriceStyle>
-      <ProductDescriptionStyle>{product.description}</ProductDescriptionStyle>
+      <PriceStyle>{priceSplit(product.price, ",")}원</PriceStyle>
+      <DescriptionStyle>{product.description}</DescriptionStyle>
     </ProductCardStyle>
   );
 };

@@ -1,1 +1,1 @@
-export { newProductAction, bestProductAction } from "./productAction";
+export { newProductsAction, bestProductsAction, detailProductAction } from "./productAction";

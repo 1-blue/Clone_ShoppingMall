@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "마켓컬리 클론 사이트 제작 - 프론트",
   "dependencies": {
+    "axios": "^0.21.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",

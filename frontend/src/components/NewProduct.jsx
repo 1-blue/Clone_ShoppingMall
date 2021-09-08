@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { newProductAction } from "../store/actions";
+import { newProductsAction } from "../store/actions";
 
 import ProductCard from "./common/ProductCard";
 
@@ -17,7 +17,7 @@ const NewProduct = () => {
   const tempProducts = useSelector(state => state.product.products);
 
   useEffect(() => {
-    dispatch(newProductAction());
+    dispatch(newProductsAction());
   }, []);
 
   return (
