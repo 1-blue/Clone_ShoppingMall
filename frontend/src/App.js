@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 // pages
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
@@ -23,6 +24,7 @@ function App() {
 
       <Route path="/" component={HomePage} exact />
       <Route path="/register" component={RegisterPage} exact />
+      <Route path="/login" component={LoginPage} exact />
       <Route path="/product" component={ProductsPage} exact />
       <Route path="/product/:_id" component={ProductDetailPage} exact />
     </div>
