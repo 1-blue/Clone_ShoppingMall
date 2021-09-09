@@ -4,7 +4,7 @@
   "description": "마켓컬리 클론 사이트 제작 - 서버",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,19 @@
   "bugs": {
     "url": "https://github.com/1-blue/Clone_ShoppingMall/issues"
   },
-  "homepage": "https://github.com/1-blue/Clone_ShoppingMall#readme"
+  "homepage": "https://github.com/1-blue/Clone_ShoppingMall#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2"
+  }
 }
