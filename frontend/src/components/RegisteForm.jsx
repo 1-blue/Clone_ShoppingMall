@@ -1,8 +1,13 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 // 사용자 정의 hooks
 import useInput from "../hooks/useInput";
+
+// action
+import { resetMessageAction, registerAction } from "../store/actions";
 
 const PStyle = styled.p`
   width: 640px;
@@ -103,23 +108,25 @@ const SubmitBtnStyle = styled.button`
   font-size: 1rem;
 `;
 
-const RegisterForm = () => {
+const RegisterForm = ({ history }) => {
+  const dispatch = useDispatch();
+  const { isRegisterDone } = useSelector(state => state.auth);
   const spanStyle = useMemo(() => ({ color: "#ee6a7b" }));
   const redioLableStyle = useMemo(() => ({ padding: "10px 52px 10px 0px" }));
   const successText = useMemo(() => ({ color: "#0f851a", fontSize: "0.75rem" }));
   const warningText = useMemo(() => ({ color: "#b3130b", fontSize: "0.75rem" }));
 
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [name, onChangeName] = useInput("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, onChangeAddress] = useInput("");
+  const [id, setId] = useState("abcdef");
+  const [password, setPassword] = useState("123123123a");
+  const [passwordCheck, setPasswordCheck] = useState("123123123a");
+  const [name, onChangeName] = useInput("박상은");
+  const [email, setEmail] = useState("ghksaud55@naver.com");
+  const [phone, setPhone] = useState("01021038259");
+  const [address, onChangeAddress] = useInput("경상남도 진주시 이현동");
   const [gender, onChangeGender] = useInput("");
-  const [year, onChangeYear] = useInput("");
-  const [month, onChangeMonth] = useInput("");
-  const [day, onChangeDay] = useInput("");
+  const [year, onChangeYear] = useInput("1998");
+  const [month, onChangeMonth] = useInput("11");
+  const [day, onChangeDay] = useInput("06");
 
   // 아이디 유효성검사 변수
   const [validateId, setValidateId] = useState(false);
@@ -135,6 +142,14 @@ const RegisterForm = () => {
   const [validateEmailOverlap, setValidateEmailOverlap] = useState(true); // 이건 나중에 서버랑 연동후에 처리
   // 휴대폰 유효성검사 변수
   const [validatePhone, setValidatePhone] = useState(false);
+
+  useEffect(() => {
+    if (isRegisterDone) {
+      alert(isRegisterDone);
+      dispatch(resetMessageAction());
+      history.push("/");
+    }
+  }, [isRegisterDone]);
 
   // 아이디 변경 및 유효성검사
   const onChangeId = useCallback(e => {
@@ -196,8 +211,10 @@ const RegisterForm = () => {
       if (!validateEmailOverlap) return alert("이미 중복된 이메일이 존재합니다.");
       if (!validatePhone) return alert("휴대폰번호의 형식이 불일치합니다.");
 
-      // 서버로 전달할 데이터들
-      // console.log({ id, password, passwordCheck, name, email, phone, address, gender, year, month, day });
+      const birth = "" + year + month + day;
+      const tempGender = gender === "male" ? 0 : gender === "female" ? 1 : null;
+
+      dispatch(registerAction({ id, password, name, email, phone, address, gender: tempGender, birth }));
     },
     [
       validateId,
@@ -208,6 +225,17 @@ const RegisterForm = () => {
       validatePasswordCheck,
       validateEmailOverlap,
       validatePhone,
+      id,
+      password,
+      passwordCheck,
+      name,
+      email,
+      phone,
+      address,
+      gender,
+      year,
+      month,
+      day,
     ],
   );
 
@@ -419,4 +447,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

@@ -1,8 +1,12 @@
-import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import useInput from "../hooks/useInput";
+
+// action
+import { resetMessageAction, loginAction } from "../store/actions";
 
 const LoginFormStlye = styled.form`
   padding-top: 36px;
@@ -47,16 +51,33 @@ const RegisterBtnStyle = styled(Link)`
   line-height: 54px;
 `;
 
-const LoginForm = () => {
+const LoginForm = ({ history }) => {
+  const dispatch = useDispatch();
+  const { isLoginDone, isLoginError } = useSelector(state => state.auth);
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
+
+  // 로그인 성공 메시지 + 홈이동
+  useEffect(() => {
+    if (isLoginDone) {
+      alert(isLoginDone);
+      dispatch(resetMessageAction());
+      history.push("/");
+    }
+  }, [isLoginDone]);
+
+  // 로그인 실패 메시지
+  useEffect(() => {
+    if (isLoginError) {
+      alert(isLoginError);
+    }
+  }, [isLoginError]);
 
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
 
-      console.log("id >> ", id);
-      console.log("password >> ", password);
+      dispatch(loginAction({ id, password }));
     },
     [id, password],
   );
@@ -84,4 +105,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default withRouter(LoginForm);

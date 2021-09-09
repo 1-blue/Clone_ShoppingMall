@@ -1,4 +1,5 @@
 import {
+  RESET_MESSAGE,
   NEW_PRODUCTS_REQUEST,
   NEW_PRODUCTS_SUCCESS,
   NEW_PRODUCTS_FAILURE,
@@ -20,6 +21,11 @@ const initState = {
 
 function productReducer(prevState = initState, { type, data }) {
   switch (type) {
+    case RESET_MESSAGE:
+      return {
+        ...prevState,
+      };
+
     // 신상품
     case NEW_PRODUCTS_REQUEST:
       return {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // pages
 import HomePage from "./pages/HomePage";
@@ -22,11 +22,13 @@ function App() {
       <Header />
       <NavigationBar />
 
-      <Route path="/" component={HomePage} exact />
-      <Route path="/register" component={RegisterPage} exact />
-      <Route path="/login" component={LoginPage} exact />
-      <Route path="/product" component={ProductsPage} exact />
-      <Route path="/product/:_id" component={ProductDetailPage} exact />
+      <Switch>
+        <Route path="/" component={HomePage} exact />
+        <Route path="/register" component={RegisterPage} exact />
+        <Route path="/login" component={LoginPage} exact />
+        <Route path="/product" component={ProductsPage} exact />
+        <Route path="/product/:_id" component={ProductDetailPage} exact />
+      </Switch>
     </div>
   );
 }
