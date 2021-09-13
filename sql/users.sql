@@ -10,6 +10,8 @@ CREATE TABLE users(
     birth varchar(8) null
 );
 
+ALTER TABLE users MODIFY _id int primary key COMMENT '유저식별자';
+
 use marketKurly;
 show tables;
 desc users;
