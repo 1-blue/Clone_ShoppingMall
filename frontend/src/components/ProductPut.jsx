@@ -107,7 +107,7 @@ const ProductPut = ({ product }) => {
 
   return (
     <ProductPutStyle>
-      <ProductImageStyle src={product.imgPath} alt="상품 이미지" />
+      <ProductImageStyle src={product.imagePath} alt="상품 이미지" />
       <InfoContainerStyle>
         <li>
           <ProductNameStyle>{product.name}</ProductNameStyle>
@@ -120,42 +120,66 @@ const ProductPut = ({ product }) => {
         </li>
 
         {/* 판매단위 */}
-        {product?.saleInfo["saleingUnit"] && (
+        {product?.saleUnit && (
           <InfoListStyle>
             <ListTitleStyle>판매단위</ListTitleStyle>
-            <ListDescriptionStyle>{product.saleInfo["saleingUnit"]}</ListDescriptionStyle>
+            <ListDescriptionStyle>{product["saleUnit"]}</ListDescriptionStyle>
           </InfoListStyle>
         )}
 
         {/* 중량/용량 */}
-        {product?.saleInfo["weight"] && (
+        {product?.weight && (
           <InfoListStyle>
             <ListTitleStyle>중량/용량</ListTitleStyle>
-            <ListDescriptionStyle>{product.saleInfo["weight"]}</ListDescriptionStyle>
+            <ListDescriptionStyle>{product["weight"]}</ListDescriptionStyle>
           </InfoListStyle>
         )}
 
         {/* 배송구분 */}
-        {product?.saleInfo["shippingCategory"] && (
+        {product?.shipping && (
           <InfoListStyle>
             <ListTitleStyle>배송구분</ListTitleStyle>
-            <ListDescriptionStyle>{product.saleInfo["shippingCategory"]}</ListDescriptionStyle>
+            <ListDescriptionStyle>{product["shipping"]}</ListDescriptionStyle>
+          </InfoListStyle>
+        )}
+
+        {/* 원산지 */}
+        {product?.origin && (
+          <InfoListStyle>
+            <ListTitleStyle>원산지</ListTitleStyle>
+            <ListDescriptionStyle>{product["origin"]}</ListDescriptionStyle>
           </InfoListStyle>
         )}
 
         {/* 포장타입 */}
-        {product?.saleInfo["packagingType"] && (
+        {product?.packaging && (
           <InfoListStyle>
             <ListTitleStyle>포장타입</ListTitleStyle>
-            <ListDescriptionStyle>{product.saleInfo["packagingType"]}</ListDescriptionStyle>
+            <ListDescriptionStyle>{product["packaging"]}</ListDescriptionStyle>
+          </InfoListStyle>
+        )}
+
+        {/* 알레르기 */}
+        {product?.allergy && (
+          <InfoListStyle>
+            <ListTitleStyle>알레르기</ListTitleStyle>
+            <ListDescriptionStyle>{product["allergy"]}</ListDescriptionStyle>
+          </InfoListStyle>
+        )}
+
+        {/* 유통기한 */}
+        {product?.shelfLife && (
+          <InfoListStyle>
+            <ListTitleStyle>유통기한</ListTitleStyle>
+            <ListDescriptionStyle>{product["shelfLife"]}</ListDescriptionStyle>
           </InfoListStyle>
         )}
 
         {/* 안내사항 */}
-        {product?.saleInfo["notification"] && (
+        {product?.notification && (
           <InfoListStyle>
             <ListTitleStyle>안내사항</ListTitleStyle>
-            <ListDescriptionStyle>{product.saleInfo["notification"]}</ListDescriptionStyle>
+            <ListDescriptionStyle>{product["notification"]}</ListDescriptionStyle>
           </InfoListStyle>
         )}
 
@@ -182,7 +206,7 @@ const ProductPut = ({ product }) => {
         {/* 재입고알림버튼, 주문버튼 */}
         <InfoListStyle>
           <RestockBtnStyle>재입고 알림</RestockBtnStyle>
-          <PutBtnStyle>상품 주문</PutBtnStyle>
+          <PutBtnStyle>장바구니 담기</PutBtnStyle>
         </InfoListStyle>
       </InfoContainerStyle>
     </ProductPutStyle>

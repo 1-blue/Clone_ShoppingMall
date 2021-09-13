@@ -45,7 +45,7 @@ const ProductCard = ({ product }) => {
     <ProductCardStyle to={`/product/${product._id}`}>
       <ProductImageContainerStyle>
         <ProductImageStyle
-          src={product.imgPath}
+          src={product.imagePath}
           alt={`${product.name}의 이미지`}
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}

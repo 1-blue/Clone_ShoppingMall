@@ -6,10 +6,10 @@ const productsInstance = axios.create({
   timeout: 1000,
 });
 
-export function apiNewProducts(body) {
+export function apiNewProducts() {
   return productsInstance.get("/?category=new");
 }
 
-export function apiBestProducts(body) {
+export function apiBestProducts() {
   return productsInstance.get("/?category=best");
 }

@@ -36,14 +36,14 @@ function productReducer(prevState = initState, { type, data }) {
       return {
         ...prevState,
         isProductLoading: false,
-        isProductDone: null,
-        products: data,
+        isProductDone: data.message,
+        products: data.products,
       };
     case NEW_PRODUCTS_FAILURE:
       return {
         ...prevState,
         isProductLoading: false,
-        isProductError: null,
+        isProductError: data.message,
       };
 
     // 인기상품
@@ -57,7 +57,7 @@ function productReducer(prevState = initState, { type, data }) {
         ...prevState,
         isProductLoading: false,
         isProductDone: null,
-        products: data,
+        products: data.products,
       };
     case BEST_PRODUCTS_FAILURE:
       return {
@@ -73,18 +73,17 @@ function productReducer(prevState = initState, { type, data }) {
         isProductLoading: true,
       };
     case DETAIL_PRODUCT_SUCCESS:
-      console.log(data);
       return {
         ...prevState,
         isProductLoading: false,
-        isProductDone: null,
-        product: data,
+        isProductDone: data.message,
+        product: data.product,
       };
     case DETAIL_PRODUCT_FAILURE:
       return {
         ...prevState,
         isProductLoading: false,
-        isProductError: null,
+        isProductError: data.message,
       };
 
     default:

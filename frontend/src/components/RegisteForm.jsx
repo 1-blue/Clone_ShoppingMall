@@ -116,17 +116,17 @@ const RegisterForm = ({ history }) => {
   const successText = useMemo(() => ({ color: "#0f851a", fontSize: "0.75rem" }));
   const warningText = useMemo(() => ({ color: "#b3130b", fontSize: "0.75rem" }));
 
-  const [id, setId] = useState("abcdef");
-  const [password, setPassword] = useState("123123123a");
-  const [passwordCheck, setPasswordCheck] = useState("123123123a");
-  const [name, onChangeName] = useInput("박상은");
-  const [email, setEmail] = useState("ghksaud55@naver.com");
-  const [phone, setPhone] = useState("01021038259");
-  const [address, onChangeAddress] = useInput("경상남도 진주시 이현동");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [name, onChangeName] = useInput("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, onChangeAddress] = useInput("");
   const [gender, onChangeGender] = useInput("");
-  const [year, onChangeYear] = useInput("1998");
-  const [month, onChangeMonth] = useInput("11");
-  const [day, onChangeDay] = useInput("06");
+  const [year, onChangeYear] = useInput("");
+  const [month, onChangeMonth] = useInput("");
+  const [day, onChangeDay] = useInput("");
 
   // 아이디 유효성검사 변수
   const [validateId, setValidateId] = useState(false);
