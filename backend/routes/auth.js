@@ -1,7 +1,7 @@
 require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const { pool, registerSQL, registerSQL2, loginUserOfDataSQL, loginAuthSQL } = require("../database");
+const { pool, registerSQL, registerWithGenderSQL, getLoginUser, getLoginUserWithData } = require("../database");
 const { getAccessToken, getRefreshToken, isLoggedIn, isLoggedOut } = require("../auth");
 
 // 회원가입
@@ -15,7 +15,7 @@ router.post("/register", isLoggedOut, async (req, res) => {
     if (gender) {
       await pool.query(registerSQL, [id, hashPassword, name, email, phone, address, gender, birth]);
     } else {
-      await pool.query(registerSQL2, [id, hashPassword, name, email, phone, address, birth]);
+      await pool.query(registerWithGenderSQL, [id, hashPassword, name, email, phone, address, birth]);
     }
 
     res.json({ result: true, message: `${name}님 회원가입에 성공하셨습니다.` });
@@ -30,7 +30,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
 
   try {
     // 아이디 존재 여부 찾고
-    const [[exUser]] = await pool.query(loginAuthSQL, [id]);
+    const [[exUser]] = await pool.query(getLoginUser, [id]);
     if (!exUser) return res.status(400).json({ result: false, message: "일치하는 유저가 없습니다." });
 
     // 비밀번호 일치 여부 판단하고
@@ -40,7 +40,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
     // 인증토큰, 리프레쉬토큰 생성하고
     const accessToken = getAccessToken(id);
     const refreshToken = getRefreshToken(id);
-    const [[me]] = await pool.query(loginUserOfDataSQL);
+    const [[me]] = await pool.query(getLoginUserWithData);
 
     // 인증절차완료후 토큰전달
     res.json({ result: true, message: "로그인에 성공하셨습니다.", me, accessToken, refreshToken });

@@ -1,6 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+
+const { userInfoMiddleware } = require("./auth");
+
 const app = express();
 
 // 상수값지정
@@ -15,6 +18,7 @@ app.use(
     credentials: true,
   }),
 );
+app.use(userInfoMiddleware);
 
 // 라우터
 app.use("/auth", require("./routes/auth"));

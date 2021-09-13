@@ -10,21 +10,6 @@ const pool = mysql.createPool({
   port: 3306,
 }).promise();
 
-const tempDetailProduct = [
-  {
-    _id: 2,
-    imgPath: "/images/products/2.jpg",
-  },
-  {
-    _id: 3,
-    imgPath: "/images/products/3.jpg",
-  },
-  {
-    _id: 4,
-    imgPath: "/images/products/4.jpg",
-  },
-];
-
 const addProductSQL = `
 INSERT INTO 
 products(name, price, description, saleUnit, weight, shipping, origin, packaging, allergy, shelfLife, notification) 

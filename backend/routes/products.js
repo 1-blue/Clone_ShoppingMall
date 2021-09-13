@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { pool, getProductsWithImageSQL } = require("../database");
 
+// 라우터 분리할지 고민중
 router.get("/", async (req, res) => {
   const { category } = req.query;
   let products = null;
