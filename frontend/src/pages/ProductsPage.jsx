@@ -8,10 +8,6 @@ import NewProduct from "../components/NewProduct";
 import BestProduct from "../components/BestProduct";
 import SaleProduct from "../components/SaleProduct";
 
-const ProductStyle = styled.section`
-  width: 1050px;
-  margin: auto;
-`;
 const ProductTitleStyle = styled.h1`
   padding-top: 23px;
   font-size: 2rem;
@@ -27,7 +23,7 @@ const ProductsPage = ({ location }) => {
   }, [location]);
 
   return (
-    <ProductStyle>
+    <section>
       {urlParse?.category === "new" && <ProductTitleStyle>신상품</ProductTitleStyle>}
       {urlParse?.category === "best" && <ProductTitleStyle>베스트상품</ProductTitleStyle>}
       {urlParse?.category === "sale" && <ProductTitleStyle>할인상품</ProductTitleStyle>}
@@ -35,7 +31,7 @@ const ProductsPage = ({ location }) => {
       {urlParse?.category === "new" && <NewProduct></NewProduct>}
       {urlParse?.category === "best" && <BestProduct></BestProduct>}
       {urlParse?.category === "sale" && <SaleProduct></SaleProduct>}
-    </ProductStyle>
+    </section>
   );
 };
 

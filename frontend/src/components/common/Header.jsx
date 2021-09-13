@@ -6,8 +6,6 @@ import styled from "styled-components";
 import { resetMessageAction, logoutAction } from "../../store/actions";
 
 const HeaderStyle = styled.header`
-  width: 1050px;
-  margin: auto;
   display: flex;
   flex-direction: column;
 `;

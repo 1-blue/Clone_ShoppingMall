@@ -8,7 +8,7 @@ const useCount = initValue => {
   }, []);
 
   const decreaseInput = useCallback(() => {
-    if (input <= 0) return;
+    if (input <= 1) return;
     setInput(prev => prev - 1);
   }, [input]);
 

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const UlStyle = styled.ul`
@@ -19,12 +20,13 @@ const SeparatorStyle = styled.i`
 `;
 
 const Menu = () => {
+  const totalCount = useSelector(state => state.product?.products?.length);
   const totalCountStyle = useMemo(() => ({ justifySelf: "flex-start", flexGrow: 1, color: "#333", padding: 0 }));
   const paddingRightNoneStyle = useMemo(() => ({ paddingRight: "0" }));
 
   return (
     <UlStyle>
-      <LlStyle style={totalCountStyle}>총 x건</LlStyle>
+      <LlStyle style={totalCountStyle}>총 {totalCount}건</LlStyle>
       <LlStyle>추천순</LlStyle>
       <SeparatorStyle />
       <LlStyle>신상품순</LlStyle>

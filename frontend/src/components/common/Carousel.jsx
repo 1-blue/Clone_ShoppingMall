@@ -14,7 +14,9 @@ const ImageStyle = styled.img`
   transition: all 1s;
 `;
 const SlideBox = styled.figure`
-  width: 100%;
+  position: absolute;
+  left: 0%;
+  width: 100vw;
   height: 370px;
   overflow: hidden;
 `;

@@ -14,6 +14,7 @@ const NavStyle = styled.nav`
 `;
 const NavUlStyle = styled.ul`
   display: flex;
+  justify-content: space-between;
 `;
 const NavLiStyle = styled.li`
   width: 124px;
@@ -67,7 +68,7 @@ const NavigationBar = () => {
           </NavLinkStyle>
         </NavLiStyle>
         <NavLiStyle>
-          <NavLinkStyle to="/#">
+          <NavLinkStyle to="/cart">
             <IconStyle className="fas fa-shopping-cart"></IconStyle>
           </NavLinkStyle>
         </NavLiStyle>

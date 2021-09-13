@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+import { resetMessageAction, addProductAction } from "../store/actions";
 
 import { priceSplit } from "../filter";
 
 import useCount from "../hooks/useCount";
 
 const ProductPutStyle = styled.section`
-  width: 1050px;
   padding-top: 20px;
-  margin: auto;
 `;
 const ProductImageStyle = styled.img`
   width: 433px;
@@ -103,7 +104,23 @@ const PutBtnStyle = styled.button`
 `;
 
 const ProductPut = ({ product }) => {
+  const dispatch = useDispatch();
+  const { me } = useSelector(state => state.auth);
+  const { isProductActionDone } = useSelector(state => state.product);
   const [saleCount, increaseCount, decreaseCount] = useCount(1);
+
+  useEffect(() => {
+    if (isProductActionDone) {
+      alert(isProductActionDone);
+      dispatch(resetMessageAction());
+    }
+  }, [isProductActionDone]);
+
+  // 상품 장바구니에 담기
+  const onClickAddProductBtn = useCallback(() => {
+    if (!me) return alert("로그인후에 이용해주세요!");
+    dispatch(addProductAction({ ProductId: product._id, count: saleCount }));
+  }, [me, saleCount]);
 
   return (
     <ProductPutStyle>
@@ -206,7 +223,7 @@ const ProductPut = ({ product }) => {
         {/* 재입고알림버튼, 주문버튼 */}
         <InfoListStyle>
           <RestockBtnStyle>재입고 알림</RestockBtnStyle>
-          <PutBtnStyle>장바구니 담기</PutBtnStyle>
+          <PutBtnStyle onClick={onClickAddProductBtn}>장바구니 담기</PutBtnStyle>
         </InfoListStyle>
       </InfoContainerStyle>
     </ProductPutStyle>
