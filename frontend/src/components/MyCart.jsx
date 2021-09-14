@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 // action
-import { myProductAction } from "../store/actions";
+import { myCartAction } from "../store/actions";
 
 const MyCart = () => {
   const dispatch = useDispatch();
-  const { cart } = useSelector(state => state.product);
+  const { cart } = useSelector(state => state.cart);
 
   useEffect(() => {
-    dispatch(myProductAction());
+    dispatch(myCartAction());
   }, []);
 
   return (

@@ -1,13 +1,13 @@
 import axios from "axios";
 import store from "../configureStore";
 
-const productInstance = axios.create({
-  baseURL: "http://localhost:3001/product",
+const cartInstance = axios.create({
+  baseURL: "http://localhost:3001/cart",
   withCredentials: true,
   timeout: 1000,
 });
 
-const myRequestInterceptor = productInstance.interceptors.request.use(
+const myRequestInterceptor = cartInstance.interceptors.request.use(
   config => {
     const { accessToken, refreshToken } = store.getState(state => state).auth;
 
@@ -22,6 +22,9 @@ const myRequestInterceptor = productInstance.interceptors.request.use(
   },
 );
 
-export function apiDetailProduct(body) {
-  return productInstance.get(`/${body._id}`);
+export function apiMyCart() {
+  return cartInstance.get("/");
+}
+export function apiAddCart(body) {
+  return cartInstance.post("/", body);
 }

@@ -25,6 +25,7 @@ app.use("/auth", require("./routes/auth"));
 app.use("/user", require("./routes/user"));
 app.use("/products", require("./routes/products"));
 app.use("/product", require("./routes/product"));
+app.use("/cart", require("./routes/cart"));
 
 // 에러처리 미들웨어
 app.use((error, req, res, next) => {

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { resetMessageAction, addProductAction } from "../store/actions";
+import { resetMessageAction, addCartAction } from "../store/actions";
 
 import { priceSplit } from "../filter";
 
@@ -106,20 +106,20 @@ const PutBtnStyle = styled.button`
 const ProductPut = ({ product }) => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.auth);
-  const { isProductActionDone } = useSelector(state => state.product);
+  const { isCartDone } = useSelector(state => state.cart);
   const [saleCount, increaseCount, decreaseCount] = useCount(1);
 
   useEffect(() => {
-    if (isProductActionDone) {
-      alert(isProductActionDone);
+    if (isCartDone) {
+      alert(isCartDone);
       dispatch(resetMessageAction());
     }
-  }, [isProductActionDone]);
+  }, [isCartDone]);
 
   // 상품 장바구니에 담기
   const onClickAddProductBtn = useCallback(() => {
     if (!me) return alert("로그인후에 이용해주세요!");
-    dispatch(addProductAction({ ProductId: product._id, count: saleCount }));
+    dispatch(addCartAction({ ProductId: product._id, count: saleCount }));
   }, [me, saleCount]);
 
   return (

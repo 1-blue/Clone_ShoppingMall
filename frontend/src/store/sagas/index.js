@@ -2,8 +2,9 @@
 import { all, fork } from "redux-saga/effects";
 
 import authSaga from "./authSaga";
-import productSage from "./productSaga";
+import productSaga from "./productSaga";
+import cartSaga from "./cartSaga";
 
 export default function* rootSaga() {
-  yield all([fork(authSaga), fork(productSage)]);
+  yield all([fork(authSaga), fork(productSaga), fork(cartSaga)]);
 }
