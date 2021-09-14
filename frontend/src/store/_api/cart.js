@@ -28,3 +28,6 @@ export function apiMyCart() {
 export function apiAddCart(body) {
   return cartInstance.post("/", body);
 }
+export function apiDeleteCart(ProductId) {
+  return cartInstance.delete(`/${ProductId}`);
+}

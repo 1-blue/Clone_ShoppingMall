@@ -1,5 +1,6 @@
 import {
   RESET_MESSAGE,
+  EXIT_PRODUCT_DETAIL_PAGE,
   NEW_PRODUCTS_REQUEST,
   NEW_PRODUCTS_SUCCESS,
   NEW_PRODUCTS_FAILURE,
@@ -29,6 +30,11 @@ function productReducer(prevState = initState, { type, data }) {
         isProductLoading: false,
         isProductDone: null,
         isProductError: null,
+      };
+    case EXIT_PRODUCT_DETAIL_PAGE:
+      return {
+        ...prevState,
+        product: null,
       };
 
     // 신상품

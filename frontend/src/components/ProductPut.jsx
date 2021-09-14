@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { resetMessageAction, addCartAction } from "../store/actions";
+import { exitProductDatailPageAction, resetMessageAction, addCartAction } from "../store/actions";
 
 import { priceSplit } from "../filter";
 
@@ -106,15 +106,22 @@ const PutBtnStyle = styled.button`
 const ProductPut = ({ product }) => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.auth);
-  const { isCartDone } = useSelector(state => state.cart);
+  const { isAddCartDone } = useSelector(state => state.cart);
   const [saleCount, increaseCount, decreaseCount] = useCount(1);
 
+  // 장바구니 추가시 가끔 발생하는 에러때문에 임시처리
   useEffect(() => {
-    if (isCartDone) {
-      alert(isCartDone);
+    return () => {
+      dispatch(exitProductDatailPageAction());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isAddCartDone) {
+      alert(isAddCartDone);
       dispatch(resetMessageAction());
     }
-  }, [isCartDone]);
+  }, [isAddCartDone]);
 
   // 상품 장바구니에 담기
   const onClickAddProductBtn = useCallback(() => {
@@ -199,8 +206,6 @@ const ProductPut = ({ product }) => {
             <ListDescriptionStyle>{product["notification"]}</ListDescriptionStyle>
           </InfoListStyle>
         )}
-
-        {/* 추가할 정보 있으면 같은 형식으로 추가 */}
 
         {/* 구매수량 */}
         <InfoListStyle>
