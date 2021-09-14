@@ -12,7 +12,14 @@ const getLoginUserAllData = "SELECT * FROM users WHERE id = ?";
 const getProductsWithImageSQL = "SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner join images i ON p._id = i.ProductId;";
 const getProductWithImageSQL = "SELECT p._id, p.name, p.price, p.description, p.saleUnit, p.weight, p.shipping, p.origin, p.packaging, p.allergy, p.shelfLife, p.notification, i.imagePath FROM products p inner join images i ON p._id = i.ProductId WHERE p._id = ?;";
 const insertCartSQL = "INSERT INTO carts(UserId, ProductId, count) VALUES(?, ?, ?)";
-const getCartSQL = "SELECT p.name, p.price, c.count FROM carts c INNER JOIN products p ON c.ProductId = p._id WHERE c.UserId = ?;";
+const getCartSQL = `
+SELECT 
+  p._id, p.name, p.price, c.count, i.imagePath 
+  FROM carts c 
+  INNER JOIN products p ON c.ProductId = p._id 
+  INNER JOIN images i ON p._id = i.ProductId
+  WHERE c.UserId = ?`;
+const deleteCartSQL = "DELETE FROM carts WHERE UserId = ? AND ProductId = ?;"
 
 module.exports = {
   pool,
@@ -24,5 +31,6 @@ module.exports = {
   getProductsWithImageSQL,
   getProductWithImageSQL,
   insertCartSQL,
-  getCartSQL
+  getCartSQL,
+  deleteCartSQL
 };

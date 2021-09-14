@@ -8,4 +8,14 @@ SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner 
 SELECT p._id, p.name, p.price, p.description, p.saleUnit, p.weight, p.shipping, p.origin, p.packaging, p.allergy, p.shelfLife, p.notification, i.imagePath FROM products p inner join images i ON p._id = i.ProductId WHERE p._id = 1;
 
 /* 내 장바구니 상품찾기 */
-SELECT p.name, p.price, c.count FROM carts c INNER JOIN products p ON c.ProductId = p._id WHERE c.UserId = 1;
+SELECT 
+	p._id, p.name, p.price, c.count, i.imagePath
+	FROM carts c 
+    INNER JOIN products p 
+    ON c.ProductId = p._id 
+    INNER JOIN images i
+    ON p._id = i.ProductId
+    WHERE c.UserId = 1;
+    
+/* 장바구니 상품하나삭제 */
+DELETE FROM carts WHERE UserId = 1 AND ProductId = 1;

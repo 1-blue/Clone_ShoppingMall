@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { pool, insertCartSQL, getCartSQL } = require("../database");
+const { pool, insertCartSQL, getCartSQL, deleteCartSQL } = require("../database");
 
 router.get("/", async (req, res) => {
   try {
@@ -18,6 +18,17 @@ router.post("/", async (req, res) => {
     return res.json({ result: true, message: `상품 ${count}개를 장바구니에 등록완료했습니다.` });
   } catch (error) {
     console.error("POST /product/cart error >>", error);
+  }
+});
+
+router.delete("/:ProductId", async (req, res) => {
+  const { ProductId } = req.params;
+
+  try {
+    await pool.query(deleteCartSQL, [req.user._id, ProductId]);
+    return res.json({ result: true, message: "상품 1개를 장바구니에서 삭제했습니다.", ProductId: +ProductId });
+  } catch (error) {
+    console.error("DELETE /product/cart error >>", error);
   }
 });
 
