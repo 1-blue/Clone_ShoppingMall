@@ -6,7 +6,7 @@ const pool = mysql.createPool(require("./config")).promise();
 const registerSQL = "INSERT INTO users(id, password, name, email, phone, address, gender, birth) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
 const registerWithGenderSQL = "INSERT INTO users(id, password, name, email, phone, address, birth) VALUES(?, ?, ?, ?, ?, ?, ?)";
 const getLoginUser = "SELECT id, password FROM users WHERE id = ?";
-const getLoginUserWithData = "SELECT _id, id, name FROM users";
+const getLoginUserWithData = "SELECT _id, id, name, address FROM users";
 const getLoginUserAllData = "SELECT * FROM users WHERE id = ?";
 
 const getProductsWithImageSQL = "SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner join images i ON p._id = i.ProductId;";
@@ -20,6 +20,7 @@ SELECT
   INNER JOIN images i ON p._id = i.ProductId
   WHERE c.UserId = ?`;
 const deleteCartSQL = "DELETE FROM carts WHERE UserId = ? AND ProductId = ?;"
+const updateCartSQL = "UPDATE carts SET count = ? WHERE ProductId = ?;"
 
 module.exports = {
   pool,
@@ -32,5 +33,6 @@ module.exports = {
   getProductWithImageSQL,
   insertCartSQL,
   getCartSQL,
-  deleteCartSQL
+  deleteCartSQL,
+  updateCartSQL
 };

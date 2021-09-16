@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { pool, insertCartSQL, getCartSQL, deleteCartSQL } = require("../database");
+const { pool, insertCartSQL, getCartSQL, deleteCartSQL, updateCartSQL } = require("../database");
 
 router.get("/", async (req, res) => {
   try {
@@ -18,6 +18,17 @@ router.post("/", async (req, res) => {
     return res.json({ result: true, message: `상품 ${count}개를 장바구니에 등록완료했습니다.` });
   } catch (error) {
     console.error("POST /product/cart error >>", error);
+  }
+});
+
+router.patch("/", async (req, res) => {
+  const { ProductId, count } = req.body;
+
+  try {
+    await pool.query(updateCartSQL, [count, ProductId]);
+    res.json({ ProductId, count });
+  } catch (error) {
+    console.error("PATCH /cart error >> ", error);
   }
 });
 
