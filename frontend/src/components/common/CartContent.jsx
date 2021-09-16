@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -9,7 +9,7 @@ import { priceSplit } from "../../filter";
 import useCount from "../../hooks/useCount";
 
 // action
-import { deleteCartAction } from "../../store/actions";
+import { deleteCartAction, ChangeCartAction } from "../../store/actions";
 
 const ContainerStyle = styled.ul`
   display: flex;
@@ -57,7 +57,14 @@ const DropBtnStyle = styled.button`
 const CartContent = ({ product, checkedItems, onCheckedItems, isAllChecked, myProductLangth }) => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  const [saleCount, increaseCount, decreaseCount] = useCount(1);
+  const [saleCount, increaseCount, decreaseCount] = useCount(product.count);
+  const [initSaleCount, setInitSaleCount] = useState(product.count);
+
+  useEffect(() => {
+    if (initSaleCount.current !== saleCount) {
+      dispatch(ChangeCartAction({ ProductId: product._id, count: saleCount }));
+    }
+  }, [initSaleCount, saleCount]);
 
   useEffect(() => {
     isAllChecked ? setChecked(true) : setChecked(false);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -11,14 +11,18 @@ import { resetMessageAction, myCartAction } from "../store/actions";
 // components
 import CartMenu from "./common/CartMenu";
 import CartContent from "./common/CartContent";
+import CartReceipt from "./common/CartReceipt";
 
 const CartStyle = styled.form`
   display: inline-block;
   width: 742px;
+  margin-right: 20px;
 `;
 const ReceiptStyle = styled.section`
   display: inline-block;
   width: 284px;
+  vertical-align: top;
+  margin-top: 60px;
 `;
 const CartContainerStyle = styled.div`
   border-top: 1px solid black;
@@ -27,9 +31,8 @@ const CartContainerStyle = styled.div`
 
 const MyCart = () => {
   const dispatch = useDispatch();
-  const { isDeleteCartDone } = useSelector(state => state.cart);
-  const { cart } = useSelector(state => state.cart);
-  const [checkedItems, onCheckedItems, isAllChecked, onAllCheckedItems, checkItemCount] = useCheck();
+  const { cart, isDeleteCartDone } = useSelector(state => state.cart);
+  const [checkedItems, onCheckedItems, isAllChecked, onAllCheckedItems] = useCheck(cart?.length);
 
   useEffect(() => {
     dispatch(myCartAction());
@@ -50,9 +53,9 @@ const MyCart = () => {
         {/* 선택 or 삭제영역 */}
         <CartMenu
           cart={cart}
+          checkedItems={checkedItems}
           isAllChecked={isAllChecked}
           onAllCheckedItems={onAllCheckedItems}
-          checkItemCount={checkItemCount}
         />
 
         {/* 장바구니에 담긴 상품들 */}
@@ -72,15 +75,15 @@ const MyCart = () => {
         {/* 선택 or 삭제영역 */}
         <CartMenu
           cart={cart}
+          checkedItems={checkedItems}
           isAllChecked={isAllChecked}
           onAllCheckedItems={onAllCheckedItems}
-          checkItemCount={checkItemCount}
         />
       </CartStyle>
 
       {/* 영수증 및 결제영역 */}
       <ReceiptStyle>
-        <h1>영수증</h1>
+        <CartReceipt allPrice={cart?.reduce((prev, current) => prev + current.price * current.count, 0)}></CartReceipt>
       </ReceiptStyle>
     </section>
   );

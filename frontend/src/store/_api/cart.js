@@ -31,3 +31,6 @@ export function apiAddCart(body) {
 export function apiDeleteCart(ProductId) {
   return cartInstance.delete(`/${ProductId}`);
 }
+export function apiChangeCart(body) {
+  return cartInstance.patch("/", body);
+}

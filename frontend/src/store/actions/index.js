@@ -5,7 +5,7 @@ export {
   bestProductsAction,
   detailProductAction,
 } from "./productAction";
-export { myCartAction, addCartAction, deleteCartAction } from "./cartAction";
+export { myCartAction, addCartAction, deleteCartAction, ChangeCartAction } from "./cartAction";
 
 import { RESET_MESSAGE } from "../types";
 export function resetMessageAction() {

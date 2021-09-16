@@ -9,6 +9,9 @@ import {
   DELETE_CART_REQUEST,
   DELETE_CART_SUCCESS,
   DELETE_CART_FAILURE,
+  CHANGE_CART_REQUEST,
+  CHANGE_CART_SUCCESS,
+  CHANGE_CART_FAILURE,
 } from "../types";
 
 const initState = {
@@ -25,6 +28,10 @@ const initState = {
   isDeleteCartLoading: false,
   isDeleteCartDone: null,
   isDeleteCartError: null,
+
+  isChangeCartLoading: false,
+  isChangeCartDone: null,
+  isChangeCartError: null,
 };
 
 function productReducer(prevState = initState, { type, data }) {
@@ -41,6 +48,9 @@ function productReducer(prevState = initState, { type, data }) {
         isDeleteCartLoading: false,
         isDeleteCartDone: null,
         isDeleteCartError: null,
+        isChangeCartLoading: false,
+        isChangeCartDone: null,
+        isChangeCartError: null,
       };
 
     // 내 장바구니 불러오기
@@ -86,7 +96,7 @@ function productReducer(prevState = initState, { type, data }) {
         isAddCartError: data.message,
       };
 
-    // 내 장바구니 불러오기
+    // 내 장바구니 상품하나 삭제
     case DELETE_CART_REQUEST:
       return {
         ...prevState,
@@ -106,6 +116,31 @@ function productReducer(prevState = initState, { type, data }) {
         ...prevState,
         isDeleteCartLoading: false,
         isDeleteCartError: data.message,
+      };
+
+    // 내 장바구니 상품개수 변경
+    case CHANGE_CART_REQUEST:
+      return {
+        ...prevState,
+        isChangeCartLoading: false,
+        isChangeCartDone: null,
+        isChangeCartError: null,
+      };
+    case CHANGE_CART_SUCCESS:
+      // 불변성 안지키는데 오류안남
+      // 일단 방법을 잘모르겠어서 이대로 사용함
+      prevState.cart.forEach(product => (product._id === data.ProductId ? (product.count = data.count) : null));
+
+      return {
+        ...prevState,
+        isChangeCartLoading: false,
+        isChangeCartDone: data.message,
+      };
+    case CHANGE_CART_FAILURE:
+      return {
+        ...prevState,
+        isChangeCartLoading: false,
+        isChangeCartError: data.message,
       };
 
     default:
