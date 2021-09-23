@@ -1,4 +1,4 @@
-export { apiRegister, apiLogin, apiLogout } from "./auth";
+export { apiLoadToMe, apiRegister, apiLogin, apiLogout } from "./auth";
 export { apiNewProducts, apiBestProducts } from "./products";
 export { apiDetailProduct } from "./product";
 export { apiMyCart, apiAddCart, apiDeleteCart, apiChangeCart } from "./cart";

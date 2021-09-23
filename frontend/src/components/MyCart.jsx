@@ -45,7 +45,7 @@ const MyCart = () => {
     }
   }, [isDeleteCartDone]);
 
-  if (!cart) return <span>정보를 불러오는중입니다.</span>;
+  if (!cart) return <span>장바구니를 불러오는중입니다.</span>;
 
   return (
     <section>

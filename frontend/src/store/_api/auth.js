@@ -22,6 +22,10 @@ const myRequestInterceptor = authInstance.interceptors.request.use(
   },
 );
 
+export function apiLoadToMe() {
+  return authInstance.get("/load");
+}
+
 export function apiRegister(body) {
   return authInstance.post("/register", body);
 }

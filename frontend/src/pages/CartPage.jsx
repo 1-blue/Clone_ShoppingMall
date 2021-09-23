@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 // component
@@ -12,6 +13,10 @@ const CartTitleStyle = styled.h1`
 `;
 
 const CartPage = () => {
+  const { me } = useSelector(state => state.auth);
+
+  if (!me) return <span>로그인후에 접근해주세요</span>;
+
   return (
     <>
       <CartTitleStyle>장바구니</CartTitleStyle>

@@ -1,4 +1,4 @@
-export { registerAction, loginAction, logoutAction } from "./authAction";
+export { loadToMeAction, registerAction, loginAction, logoutAction } from "./authAction";
 export {
   exitProductDatailPageAction,
   newProductsAction,

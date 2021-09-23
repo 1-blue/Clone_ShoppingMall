@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router";
 import styled from "styled-components";
 
 import { queryParser } from "../filter";
@@ -35,4 +36,4 @@ const ProductsPage = ({ location }) => {
   );
 };
 
-export default ProductsPage;
+export default withRouter(ProductsPage);

@@ -1,4 +1,7 @@
 import {
+  LOAD_TO_ME_REQUEST,
+  LOAD_TO_ME_SUCCESS,
+  LOAD_TO_ME_FAILURE,
   RESET_MESSAGE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -12,9 +15,14 @@ import {
 } from "../types";
 
 const initState = {
-  me: null,
+  me: undefined,
   accessToken: null,
   refreshToken: null,
+
+  // 로그인유지
+  isLoadLoading: false,
+  isLoadDone: null,
+  isLoadError: null,
 
   // 회원가입
   isRegisterLoading: false,
@@ -43,6 +51,30 @@ function authReducer(prevState = initState, { type, data }) {
         isLoginError: null,
         isLogoutDone: null,
         isLogoutError: null,
+      };
+
+    // 로그인유지
+    case LOAD_TO_ME_REQUEST:
+      return {
+        ...prevState,
+        isLoadLoading: false,
+        isLoadDone: null,
+        isLoadError: null,
+      };
+    case LOAD_TO_ME_SUCCESS:
+      return {
+        ...prevState,
+        isLoadLoading: false,
+        isLoadDone: data.message,
+        me: data.me,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      };
+    case LOAD_TO_ME_FAILURE:
+      return {
+        ...prevState,
+        isLoadLoading: false,
+        isLoadError: null,
       };
 
     // 회원가입

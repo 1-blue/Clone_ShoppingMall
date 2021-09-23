@@ -1,6 +1,9 @@
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 
 import {
+  LOAD_TO_ME_REQUEST,
+  LOAD_TO_ME_SUCCESS,
+  LOAD_TO_ME_FAILURE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
@@ -12,12 +15,28 @@ import {
   LOGOUT_FAILURE,
 } from "../types";
 
-import { apiRegister, apiLogin, apiLogout } from "../_api/index";
+import { apiLoadToMe, apiRegister, apiLogin, apiLogout } from "../_api/index";
+
+function* loadToMe(action) {
+  try {
+    const { data } = yield call(apiLoadToMe, action.data);
+
+    yield put({
+      type: LOAD_TO_ME_SUCCESS,
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: LOAD_TO_ME_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
 
 function* register(action) {
   try {
     const { data } = yield call(apiRegister, action.data);
-    console.log("saga data >> ", data);
 
     yield put({
       type: REGISTER_SUCCESS,
@@ -65,18 +84,20 @@ function* logout() {
     });
   }
 }
+
+function* watchLoad() {
+  yield takeLatest(LOAD_TO_ME_REQUEST, loadToMe);
+}
 function* watchRegister() {
   yield takeLatest(REGISTER_REQUEST, register);
 }
-
 function* watchLogin() {
   yield takeLatest(LOGIN_REQUEST, login);
 }
-
 function* watchLogout() {
   yield takeLatest(LOGOUT_REQUEST, logout);
 }
 
 export default function* authSaga() {
-  yield all([fork(watchRegister), fork(watchLogin), fork(watchLogout)]);
+  yield all([fork(watchLoad), fork(watchRegister), fork(watchLogin), fork(watchLogout)]);
 }

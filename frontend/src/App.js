@@ -16,16 +16,19 @@ import AppLayout from "./components/common/AppLayout";
 import "./css/common.css";
 import "./css/reset.css";
 
+// 인증 hoc ( 로그인유지 & 페이지접근권한확인 )
+import AuthHoc from "./hoc/auth";
+
 function App() {
   return (
     <AppLayout>
       <Switch>
-        <Route path="/" component={HomePage} exact />
-        <Route path="/register" component={RegisterPage} exact />
-        <Route path="/login" component={LoginPage} exact />
-        <Route path="/product" component={ProductsPage} exact />
-        <Route path="/product/:_id" component={ProductDetailPage} exact />
-        <Route path="/cart" component={CartPage} exact />
+        <Route path="/" component={AuthHoc(HomePage, null)} exact />
+        <Route path="/register" component={AuthHoc(RegisterPage, false)} exact />
+        <Route path="/login" component={AuthHoc(LoginPage, false)} exact />
+        <Route path="/product" component={AuthHoc(ProductsPage, null)} exact />
+        <Route path="/product/:_id" component={AuthHoc(ProductDetailPage, null)} exact />
+        <Route path="/cart" component={AuthHoc(CartPage, true)} exact />
       </Switch>
     </AppLayout>
   );
