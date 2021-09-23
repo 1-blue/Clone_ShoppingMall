@@ -1,8 +1,53 @@
 require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const { pool, registerSQL, registerWithGenderSQL, getLoginUser, getLoginUserWithData } = require("../database");
+const jwt = require("jsonwebtoken");
+const {
+  pool,
+  getLoginUserAllData,
+  registerSQL,
+  registerWithGenderSQL,
+  getLoginUser,
+  getLoginUserWithData,
+} = require("../database");
 const { getAccessToken, getRefreshToken, isLoggedIn, isLoggedOut } = require("../auth");
+
+// 로그인유지
+router.get("/load", async (req, res) => {
+  const { access_token } = req.cookies;
+
+  if (!access_token) {
+    return res.json({
+      result: false,
+      message: "로그인유지실패",
+      me: null,
+      accessToken: null,
+      refreshToken: null,
+    });
+  }
+
+  jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
+    const [[exUser]] = await pool.query(getLoginUserAllData, [user.id]);
+
+    if (exUser) {
+      return res.json({
+        result: true,
+        message: `로그인유지`,
+        me: exUser,
+        accessToken: access_token,
+        refreshToken: access_token,
+      });
+    }
+
+    return res.json({
+      result: false,
+      message: "로그인유지실패",
+      me: null,
+      accessToken: null,
+      refreshToken: null,
+    });
+  });
+});
 
 // 회원가입
 router.post("/register", isLoggedOut, async (req, res) => {
@@ -42,6 +87,13 @@ router.post("/login", isLoggedOut, async (req, res) => {
     const refreshToken = getRefreshToken(id);
     const [[me]] = await pool.query(getLoginUserWithData);
 
+    // 로그인 유지를 위한 쿠키
+    res.cookie("access_token", accessToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60,
+      // signed: true,
+    });
+
     // 인증절차완료후 토큰전달
     res.json({ result: true, message: "로그인에 성공하셨습니다.", me, accessToken, refreshToken });
   } catch (error) {
@@ -54,6 +106,12 @@ router.delete("/logout", isLoggedIn, async (req, res) => {
   const me = null;
   const accessToken = null;
   const refreshToken = null;
+
+  // 쿠키삭제
+  res.cookie("access_token", "", {
+    httpOnly: true,
+    maxAge: 1,
+  });
 
   res.json({ result: true, message: "로그아웃을 완료했습니다.", me, accessToken, refreshToken });
 });

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const { userInfoMiddleware } = require("./auth");
@@ -12,6 +13,7 @@ app.set("PORT", process.env.PORT);
 // 미들웨어
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:3000",

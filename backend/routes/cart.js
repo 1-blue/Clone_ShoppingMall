@@ -25,7 +25,7 @@ router.patch("/", async (req, res) => {
   const { ProductId, count } = req.body;
 
   try {
-    await pool.query(updateCartSQL, [count, ProductId]);
+    await pool.query(updateCartSQL, [count, ProductId, req.user._id]);
     res.json({ ProductId, count });
   } catch (error) {
     console.error("PATCH /cart error >> ", error);

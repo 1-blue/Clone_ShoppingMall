@@ -28,7 +28,7 @@ const userInfoMiddleware = (req, res, next) => {
   });
 };
 
-// 로그인상태인지 확인 + req.user정보채워넣어줌 ( access token의 유효성 검사 )
+// 로그인상태인지 확인 ( access token의 유효성 검사 )
 const isLoggedIn = (req, res, next) => {
   let authHeader = req.headers["authorization"];
   let token = authHeader && authHeader.split(" ")[1];

@@ -20,7 +20,7 @@ SELECT
   INNER JOIN images i ON p._id = i.ProductId
   WHERE c.UserId = ?`;
 const deleteCartSQL = "DELETE FROM carts WHERE UserId = ? AND ProductId = ?;"
-const updateCartSQL = "UPDATE carts SET count = ? WHERE ProductId = ?;"
+const updateCartSQL = "UPDATE carts SET count = ? WHERE ProductId = ? AND UserId = ?;"
 
 module.exports = {
   pool,
