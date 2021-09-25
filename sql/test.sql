@@ -26,3 +26,7 @@ select * from carts;
 UPDATE carts SET count = 2 WHERE ProductId = 1;
 
 select * from products;
+
+select * from images;
+
+SELECT * FROM images where 'type' = 'main';

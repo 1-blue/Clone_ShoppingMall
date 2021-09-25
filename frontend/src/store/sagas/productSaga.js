@@ -1,6 +1,9 @@
 import { all, fork, put, takeLatest, call } from "redux-saga/effects";
 
 import {
+  LOAD_MAIN_IMAGES_REQUEST,
+  LOAD_MAIN_IMAGES_SUCCESS,
+  LOAD_MAIN_IMAGES_FAILURE,
   ALL_PRODUCTS_REQUEST,
   ALL_PRODUCTS_SUCCESS,
   ALL_PRODUCTS_FAILURE,
@@ -15,7 +18,24 @@ import {
   DETAIL_PRODUCT_FAILURE,
 } from "../types";
 
-import { apiAllProducts, apiNewProducts, apiBestProducts, apiDetailProduct } from "../_api";
+import { apiLoadMainImages, apiAllProducts, apiNewProducts, apiBestProducts, apiDetailProduct } from "../_api";
+
+function* loadMainImages(action) {
+  try {
+    const { data } = yield call(apiLoadMainImages, action.data);
+
+    yield put({
+      type: LOAD_MAIN_IMAGES_SUCCESS,
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: LOAD_MAIN_IMAGES_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
 
 function* allProducts(action) {
   try {
@@ -53,11 +73,11 @@ function* newProducts(action) {
 
 function* bestProducts(action) {
   try {
-    // const { data } = yield call(apiBestProducts, action.data);
+    const { data } = yield call(apiBestProducts, action.data);
 
     yield put({
       type: BEST_PRODUCTS_SUCCESS,
-      //data,
+      data,
     });
   } catch (error) {
     console.error(error);
@@ -85,6 +105,9 @@ function* detailProduct(action) {
   }
 }
 
+function* watchLoadMainImages() {
+  yield takeLatest(LOAD_MAIN_IMAGES_REQUEST, loadMainImages);
+}
 function* watchAllProducts() {
   yield takeLatest(ALL_PRODUCTS_REQUEST, allProducts);
 }
@@ -99,5 +122,11 @@ function* watchDetailProducts() {
 }
 
 export default function* productSaga() {
-  yield all([fork(watchAllProducts), fork(watchNewProducts), fork(watchBestProducts), fork(watchDetailProducts)]);
+  yield all([
+    fork(watchLoadMainImages),
+    fork(watchAllProducts),
+    fork(watchNewProducts),
+    fork(watchBestProducts),
+    fork(watchDetailProducts),
+  ]);
 }

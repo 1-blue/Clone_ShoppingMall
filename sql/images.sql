@@ -6,12 +6,6 @@ CREATE TABLE images (
     CONSTRAINT fk_products_images FOREIGN KEY (ProductId) REFERENCES products(_id) ON DELETE CASCADE
 );
 
-/* 아직 입력로직을 안만들어서 직접 넣기 */
-INSERT INTO images(`type`, imagePath) VALUES('main', '/images/main/4.webp');
-INSERT INTO images(ProductId, `type`, imagePath) VALUES(4, 'product', '/images/product/4.jpg');
-
-SELECT * FROM images;
-
 use marketKurly;
 show tables;
 desc images;

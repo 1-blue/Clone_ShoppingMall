@@ -9,7 +9,10 @@ const getLoginUser = "SELECT id, password FROM users WHERE id = ?";
 const getLoginUserWithData = "SELECT _id, id, name, address FROM users";
 const getLoginUserAllData = "SELECT * FROM users WHERE id = ?";
 
-const getProductsWithImageSQL = "SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner join images i ON p._id = i.ProductId;";
+const getAllProductsWithImageSQL = "SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner join images i ON p._id = i.ProductId;";
+const getNewProductsWithImageSQL = "SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner join images i ON p._id = i.ProductId WHERE type = 'new';";
+const getBestProductsWithImageSQL = "SELECT p._id, p.name, p.price, p.description, i.imagePath FROM products p inner join images i ON p._id = i.ProductId WHERE type = 'best';";
+
 const getProductWithImageSQL = "SELECT p._id, p.name, p.price, p.description, p.saleUnit, p.weight, p.shipping, p.origin, p.packaging, p.allergy, p.shelfLife, p.notification, i.imagePath FROM products p inner join images i ON p._id = i.ProductId WHERE p._id = ?;";
 const insertCartSQL = "INSERT INTO carts(UserId, ProductId, count) VALUES(?, ?, ?)";
 const getCartSQL = `
@@ -22,6 +25,8 @@ SELECT
 const deleteCartSQL = "DELETE FROM carts WHERE UserId = ? AND ProductId = ?;"
 const updateCartSQL = "UPDATE carts SET count = ? WHERE ProductId = ? AND UserId = ?;"
 
+const getMainImagesSQL = "SELECT _id, imagePath FROM images where `type` = 'main';";
+
 module.exports = {
   pool,
   registerSQL,
@@ -29,10 +34,13 @@ module.exports = {
   getLoginUserWithData,
   getLoginUser,
   getLoginUserAllData,
-  getProductsWithImageSQL,
+  getAllProductsWithImageSQL,
+  getNewProductsWithImageSQL,
+  getBestProductsWithImageSQL,
   getProductWithImageSQL,
   insertCartSQL,
   getCartSQL,
   deleteCartSQL,
-  updateCartSQL
+  updateCartSQL,
+  getMainImagesSQL
 };

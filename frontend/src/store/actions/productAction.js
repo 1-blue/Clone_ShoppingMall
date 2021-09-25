@@ -1,5 +1,6 @@
 import {
   EXIT_PRODUCT_DETAIL_PAGE,
+  LOAD_MAIN_IMAGES_REQUEST,
   ALL_PRODUCTS_REQUEST,
   NEW_PRODUCTS_REQUEST,
   BEST_PRODUCTS_REQUEST,
@@ -9,6 +10,12 @@ import {
 export function exitProductDatailPageAction(data) {
   return {
     type: EXIT_PRODUCT_DETAIL_PAGE,
+    data,
+  };
+}
+export function loadMainImageAction(data) {
+  return {
+    type: LOAD_MAIN_IMAGES_REQUEST,
     data,
   };
 }

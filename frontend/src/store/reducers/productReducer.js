@@ -1,6 +1,9 @@
 import {
   RESET_MESSAGE,
   EXIT_PRODUCT_DETAIL_PAGE,
+  LOAD_MAIN_IMAGES_REQUEST,
+  LOAD_MAIN_IMAGES_SUCCESS,
+  LOAD_MAIN_IMAGES_FAILURE,
   ALL_PRODUCTS_REQUEST,
   ALL_PRODUCTS_SUCCESS,
   ALL_PRODUCTS_FAILURE,
@@ -18,6 +21,7 @@ import {
 const initState = {
   products: null,
   product: null,
+  mainImages: null,
 
   // 상품 정보 불러오기
   isProductLoading: false,
@@ -38,6 +42,21 @@ function productReducer(prevState = initState, { type, data }) {
       return {
         ...prevState,
         product: null,
+      };
+
+    // 메인이미지 받기
+    case LOAD_MAIN_IMAGES_REQUEST:
+      return {
+        ...prevState,
+      };
+    case LOAD_MAIN_IMAGES_SUCCESS:
+      return {
+        ...prevState,
+        mainImages: data.mainImages,
+      };
+    case LOAD_MAIN_IMAGES_FAILURE:
+      return {
+        ...prevState,
       };
 
     // 모든상품

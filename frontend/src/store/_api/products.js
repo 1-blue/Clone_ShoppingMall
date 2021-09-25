@@ -22,6 +22,10 @@ const myRequestInterceptor = productsInstance.interceptors.request.use(
   },
 );
 
+export function apiLoadMainImages() {
+  return productsInstance.get("/mainImages");
+}
+
 export function apiAllProducts() {
   return productsInstance.get("/?category=all");
 }

@@ -22,17 +22,17 @@ VALUES(?, ?)
 `
 
 async function addProduct() {
-  const name = "[비움반찬]김치볶음";
-  const price = 3900;
-  const description = "할라피뇨의 청량하고 스파이시한 킥";
-  const saleUnit = "1팩";
-  const weight = "150g";
+  const name = "[MF365] 김구원선생 국내산 무농약 콩나물 300g";
+  const price = 900;
+  const description = "믿고 먹을 수 있는 상품을 합리적인 가격에, KF365";
+  const saleUnit = "1봉";
+  const weight = "300g";
   const shipping = "샛별배송/택배배송";
-  const origin = "";
+  const origin = "국내산";
   const packaging = "냉장/종이포장";
   const allergy = "";
-  const shelfLife = "";
-  const notification = "아무튼 김치";
+  const shelfLife = "3일이상";
+  const notification = "아무튼 콩나물임";
 
   await pool.query(addProductSQL, [name, price, description, saleUnit, weight, shipping, origin, packaging, allergy, shelfLife, notification]);
 }

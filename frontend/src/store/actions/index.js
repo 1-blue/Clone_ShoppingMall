@@ -1,6 +1,7 @@
 export { loadToMeAction, registerAction, loginAction, logoutAction } from "./authAction";
 export {
   exitProductDatailPageAction,
+  loadMainImageAction,
   allProductsAction,
   newProductsAction,
   bestProductsAction,
