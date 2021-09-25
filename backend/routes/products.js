@@ -8,6 +8,9 @@ router.get("/", async (req, res) => {
 
   try {
     switch (category) {
+      case "all":
+        [products] = await pool.query(getProductsWithImageSQL);
+        return res.json({ result: true, message: "신상품을 정상적으로 불러왔습니다.", products });
       case "new":
         [products] = await pool.query(getProductsWithImageSQL);
         return res.json({ result: true, message: "신상품을 정상적으로 불러왔습니다.", products });

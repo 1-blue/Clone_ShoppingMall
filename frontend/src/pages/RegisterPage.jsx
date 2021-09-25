@@ -11,10 +11,10 @@ const TitleStyle = styled.h1`
 
 const RegisterPage = () => {
   return (
-    <section>
+    <main>
       <TitleStyle>회원가입</TitleStyle>
       <RegisterForm></RegisterForm>
-    </section>
+    </main>
   );
 };
 

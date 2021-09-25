@@ -8,7 +8,7 @@ const NavStyle = styled.nav`
   position: sticky;
   top: 0;
   z-index: 9999;
-  width: 1050px;
+  width: 100%;
   margin: auto;
   background: white;
 `;

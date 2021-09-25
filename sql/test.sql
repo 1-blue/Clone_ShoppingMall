@@ -19,3 +19,10 @@ SELECT
     
 /* 장바구니 상품하나삭제 */
 DELETE FROM carts WHERE UserId = 1 AND ProductId = 1;
+
+select * from carts;
+
+/* 장바구니 상품개수 수정 */
+UPDATE carts SET count = 2 WHERE ProductId = 1;
+
+select * from products;

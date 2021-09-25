@@ -8,7 +8,7 @@ const ProductCardStyle = styled(Link)`
   width: 338px;
   padding-top: 25px;
 `;
-const ProductImageContainerStyle = styled.div`
+const ProductImageContainerStyle = styled.section`
   height: 435px;
   overflow: hidden;
 `;
@@ -42,20 +42,23 @@ const ProductCard = ({ product }) => {
   const hoverStyle = useMemo(() => ({ transform: "scale(1.05)" }));
 
   return (
-    <ProductCardStyle to={`/product/${product._id}`}>
-      <ProductImageContainerStyle>
-        <ProductImageStyle
-          src={product.imagePath}
-          alt={`${product.name}의 이미지`}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-          style={isHover ? hoverStyle : null}
-        />
-      </ProductImageContainerStyle>
-      <ProductNameStyle>{product.name}</ProductNameStyle>
-      <PriceStyle>{priceSplit(product.price, ",")}원</PriceStyle>
-      <DescriptionStyle>{product.description}</DescriptionStyle>
-    </ProductCardStyle>
+    <li>
+      <ProductCardStyle to={`/product/${product._id}`}>
+        <ProductImageContainerStyle>
+          <ProductImageStyle
+            // src={process.env.REACT_APP_IMAGE_PATH + product.imagePath}
+            src={"http://localhost:3001" + product.imagePath}
+            alt={`${product.name}의 이미지`}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            style={isHover ? hoverStyle : null}
+          />
+        </ProductImageContainerStyle>
+        <ProductNameStyle>{product.name}</ProductNameStyle>
+        <PriceStyle>{priceSplit(product.price, ",")}원</PriceStyle>
+        <DescriptionStyle>{product.description}</DescriptionStyle>
+      </ProductCardStyle>
+    </li>
   );
 };
 

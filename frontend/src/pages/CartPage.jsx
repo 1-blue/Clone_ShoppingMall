@@ -18,10 +18,10 @@ const CartPage = () => {
   if (!me) return <span>로그인후에 접근해주세요</span>;
 
   return (
-    <>
+    <main>
       <CartTitleStyle>장바구니</CartTitleStyle>
       <MyCart></MyCart>
-    </>
+    </main>
   );
 };
 

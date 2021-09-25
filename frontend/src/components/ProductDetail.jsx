@@ -8,7 +8,7 @@ import { priceSplit } from "../filter";
 
 import useCount from "../hooks/useCount";
 
-const ProductPutStyle = styled.section`
+const ProductDetailStyle = styled.section`
   padding-top: 20px;
 `;
 const ProductImageStyle = styled.img`
@@ -103,7 +103,7 @@ const PutBtnStyle = styled.button`
   letter-spacing: -0.1px;
 `;
 
-const ProductPut = ({ product }) => {
+const ProductDetail = ({ product }) => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.auth);
   const { isAddCartDone } = useSelector(state => state.cart);
@@ -130,8 +130,8 @@ const ProductPut = ({ product }) => {
   }, [me, saleCount]);
 
   return (
-    <ProductPutStyle>
-      <ProductImageStyle src={product.imagePath} alt="상품 이미지" />
+    <ProductDetailStyle>
+      <ProductImageStyle src={"http://localhost:3001" + product.imagePath} alt="상품 이미지" />
       <InfoContainerStyle>
         <li>
           <ProductNameStyle>{product.name}</ProductNameStyle>
@@ -231,8 +231,8 @@ const ProductPut = ({ product }) => {
           <PutBtnStyle onClick={onClickAddProductBtn}>장바구니 담기</PutBtnStyle>
         </InfoListStyle>
       </InfoContainerStyle>
-    </ProductPutStyle>
+    </ProductDetailStyle>
   );
 };
 
-export default ProductPut;
+export default ProductDetail;

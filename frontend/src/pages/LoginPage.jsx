@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import LoginForm from "../components/LoginForm";
 
-const LoginStyle = styled.section`
+const LoginStyle = styled.main`
   width: 340px;
   margin: auto;
   padding-top: 90px;

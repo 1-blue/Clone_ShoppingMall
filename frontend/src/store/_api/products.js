@@ -22,6 +22,10 @@ const myRequestInterceptor = productsInstance.interceptors.request.use(
   },
 );
 
+export function apiAllProducts() {
+  return productsInstance.get("/?category=all");
+}
+
 export function apiNewProducts() {
   return productsInstance.get("/?category=new");
 }

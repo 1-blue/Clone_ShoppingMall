@@ -1,6 +1,9 @@
 import { all, fork, put, takeLatest, call } from "redux-saga/effects";
 
 import {
+  ALL_PRODUCTS_REQUEST,
+  ALL_PRODUCTS_SUCCESS,
+  ALL_PRODUCTS_FAILURE,
   NEW_PRODUCTS_REQUEST,
   NEW_PRODUCTS_SUCCESS,
   NEW_PRODUCTS_FAILURE,
@@ -12,7 +15,24 @@ import {
   DETAIL_PRODUCT_FAILURE,
 } from "../types";
 
-import { apiNewProducts, apiBestProducts, apiDetailProduct } from "../_api";
+import { apiAllProducts, apiNewProducts, apiBestProducts, apiDetailProduct } from "../_api";
+
+function* allProducts(action) {
+  try {
+    const { data } = yield call(apiAllProducts, action.data);
+
+    yield put({
+      type: ALL_PRODUCTS_SUCCESS,
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: ALL_PRODUCTS_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
 
 function* newProducts(action) {
   try {
@@ -65,6 +85,9 @@ function* detailProduct(action) {
   }
 }
 
+function* watchAllProducts() {
+  yield takeLatest(ALL_PRODUCTS_REQUEST, allProducts);
+}
 function* watchNewProducts() {
   yield takeLatest(NEW_PRODUCTS_REQUEST, newProducts);
 }
@@ -76,5 +99,5 @@ function* watchDetailProducts() {
 }
 
 export default function* productSaga() {
-  yield all([fork(watchNewProducts), fork(watchBestProducts), fork(watchDetailProducts)]);
+  yield all([fork(watchAllProducts), fork(watchNewProducts), fork(watchBestProducts), fork(watchDetailProducts)]);
 }

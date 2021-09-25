@@ -1,6 +1,9 @@
 import {
   RESET_MESSAGE,
   EXIT_PRODUCT_DETAIL_PAGE,
+  ALL_PRODUCTS_REQUEST,
+  ALL_PRODUCTS_SUCCESS,
+  ALL_PRODUCTS_FAILURE,
   NEW_PRODUCTS_REQUEST,
   NEW_PRODUCTS_SUCCESS,
   NEW_PRODUCTS_FAILURE,
@@ -35,6 +38,28 @@ function productReducer(prevState = initState, { type, data }) {
       return {
         ...prevState,
         product: null,
+      };
+
+    // 모든상품
+    case ALL_PRODUCTS_REQUEST:
+      return {
+        ...prevState,
+        isProductLoading: true,
+        isProductDone: null,
+        isProductError: null,
+      };
+    case ALL_PRODUCTS_SUCCESS:
+      return {
+        ...prevState,
+        isProductLoading: false,
+        isProductDone: data.message,
+        products: data.products,
+      };
+    case ALL_PRODUCTS_FAILURE:
+      return {
+        ...prevState,
+        isProductLoading: false,
+        isProductError: data.message,
       };
 
     // 신상품

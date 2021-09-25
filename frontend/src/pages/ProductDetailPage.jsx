@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 
 import { detailProductAction } from "../store/actions";
 
-import ProductPut from "../components/ProductPut";
+import ProductDetail from "../components/ProductDetail";
 
 const ProductDetailPage = props => {
   const dispatch = useDispatch();
@@ -13,12 +13,7 @@ const ProductDetailPage = props => {
   useEffect(() => {
     dispatch(detailProductAction({ _id: +props.match.params._id }));
   }, []);
-  return (
-    <>
-      {product && <ProductPut product={product}></ProductPut>}
-      <div>상품설명, 상세정보, 후기, 문의 등등 채워넣을 곳</div>
-    </>
-  );
+  return <main>{product && <ProductDetail product={product}></ProductDetail>}</main>;
 };
 
 export default withRouter(ProductDetailPage);
